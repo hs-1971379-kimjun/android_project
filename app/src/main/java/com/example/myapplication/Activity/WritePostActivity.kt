@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -18,27 +19,26 @@ class WritePostActivity : AppCompatActivity() {
     private lateinit var descriptionEditText: EditText
     private lateinit var priceEditText: EditText
     private lateinit var uploadButton: Button
-    private lateinit var backButton2: Button
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.writepost)
-
+        setContentView(R.layout.activity_write_post)
 
         dbRef = FirebaseDatabase.getInstance().getReference("Items")
 
         val mAuth = FirebaseAuth.getInstance()
         val currentUser: FirebaseUser? = mAuth.currentUser
 
-        titleEditText = findViewById(R.id.cTitle)
-        descriptionEditText = findViewById(R.id.cDes)
-        priceEditText = findViewById(R.id.cPrice)
-        backButton2 = findViewById(R.id.backbutton2)
-        backButton2.setOnClickListener{
+        titleEditText = findViewById(R.id.editTextTitle)
+        descriptionEditText = findViewById(R.id.editTextDescription)
+        priceEditText = findViewById(R.id.editTextPrice)
+        backButton = findViewById(R.id.buttonBack)
+        backButton.setOnClickListener{
             finish()
         }
-        uploadButton = findViewById(R.id.writepostbtn)
-        uploadButton.setOnClickListener(View.OnClickListener {
+        uploadButton = findViewById(R.id.buttonUpload)
+        uploadButton.setOnClickListener {
             val title = titleEditText.text.toString()
             val description = descriptionEditText.text.toString()
             val price = priceEditText.text.toString()
@@ -47,9 +47,8 @@ class WritePostActivity : AppCompatActivity() {
             // 글 작성 및 업로드
             uploadPost(title, description, price, userName)
             finish()
-        })
+        }
     }
-
 
     private fun uploadPost(title: String?, description: String?, price: String?, seller: String?) {
         val formattedPrice = "$price"
