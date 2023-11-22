@@ -1,10 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.Activity
+
+import com.example.myapplication.R
 
 package com.example.myapplication.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -16,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 class chatActivity : AppCompatActivity() {
