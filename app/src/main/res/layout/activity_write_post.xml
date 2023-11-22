@@ -8,9 +8,8 @@
     android:background="@drawable/cha"
     tools:context=".Activity.WritePostActivity">
 
-    <!-- 판매글 작성하기 -->
     <TextView
-        android:id="@+id/cMaintext"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="판매글 등록"
@@ -18,108 +17,108 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/cTitle"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTitle"
         android:layout_marginTop="24dp"/>
 
-    <!-- 상품명 입력 -->
+
     <EditText
-        android:id="@+id/cTitle"
+        android:id="@+id/editTextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/cMaintext"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
         android:hint="제목"/>
 
-    <!-- 가격 입력 -->
+
     <EditText
-        android:id="@+id/cPrice"
+        android:id="@+id/editTextPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/cTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
         android:hint="가격"/>
 
-    <!-- 상품 설명 입력 -->
+
     <EditText
-        android:id="@+id/cDes"
+        android:id="@+id/editTextDescription"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/cPrice"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
         android:hint="자세한 설명"/>
 
-    <!-- 작성하기 버튼 -->
+
     <Button
-        android:id="@+id/writepostbtn"
+        android:id="@+id/buttonUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#000C06"
         android:text="작성"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/cDes"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 뒤로가기 버튼 -->
+
     <Button
-        android:id="@+id/backbutton2"
+        android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#000402"
         android:text="취소"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/writepostbtn"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUpload"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 텍스트: '상품명' -->
+
     <TextView
-        android:id="@+id/wtextView"
+        android:id="@+id/textViewTitleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="제목"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/cTitle"
-        app:layout_constraintStart_toStartOf="@+id/cTitle"
-        app:layout_constraintTop_toTopOf="@+id/cTitle" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextTitle"
+        app:layout_constraintStart_toStartOf="@+id/editTextTitle"
+        app:layout_constraintTop_toTopOf="@+id/editTextTitle" />
 
-    <!-- 텍스트: '가격' -->
+
     <TextView
-        android:id="@+id/wtextView2"
+        android:id="@+id/textViewPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="가격"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/cPrice"
-        app:layout_constraintBottom_toTopOf="@+id/cPrice"
-        app:layout_constraintTop_toTopOf="@+id/cPrice"/>
+        app:layout_constraintStart_toStartOf="@+id/editTextPrice"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPrice"
+        app:layout_constraintTop_toTopOf="@+id/editTextPrice"/>
 
-    <!-- 텍스트: '상품 설명' -->
+
     <TextView
-        android:id="@+id/wtextView3"
+        android:id="@+id/textViewDescriptionLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="자세한 설명"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/cDes"
-        app:layout_constraintStart_toStartOf="@+id/cDes"
-        app:layout_constraintTop_toTopOf="@+id/cDes" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+        app:layout_constraintStart_toStartOf="@+id/editTextDescription"
+        app:layout_constraintTop_toTopOf="@+id/editTextDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
