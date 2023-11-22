@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/allProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="모두" />
+    <item
+        android:id="@+id/sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="판매중" />
+    <item
+        android:id="@+id/sold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="판매 완료" />
+</menu>

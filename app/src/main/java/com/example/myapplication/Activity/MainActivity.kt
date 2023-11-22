@@ -16,14 +16,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userEmail = currentUser?.email
 
-        displayToast("User email: $userEmail")
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+
+        displayToast("User email: $userEmail")
         switchToFragment(homeFragment)
     }
 
