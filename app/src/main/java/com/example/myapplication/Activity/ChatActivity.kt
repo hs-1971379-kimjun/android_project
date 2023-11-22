@@ -2,8 +2,6 @@ package com.example.myapplication.Activity
 
 import com.example.myapplication.R
 
-package com.example.myapplication.Activity
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,9 +17,16 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+// activity_chat.xml id변경
+
+// senderEmail -> sendEmail
+// rv_chat -> chat_rv
+// chat -> chatting
+// sendBtn -> sendButton
+
 class chatActivity : AppCompatActivity() {
 
-    private lateinit var sendBtn: Button
+    private lateinit var sendButton: Button
     private lateinit var editChatting: EditText
     private lateinit var userStorageRef: DatabaseReference
     private lateinit var msgStorageRef: DatabaseReference
@@ -34,8 +39,8 @@ class chatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         editChatting = findViewById<EditText>(R.id.chatting)
-        sendBtn = findViewById<Button>(R.id.sendBtn)
-        recyclerView = findViewById<RecyclerView>(R.id.rv_chat)
+        sendButton = findViewById<Button>(R.id.sendButton)
+        recyclerView = findViewById<RecyclerView>(R.id.chat_rv)
         recyclerView.visibility = View.GONE
         chatAdapter = ChatAdapter(itemList)
 
@@ -93,7 +98,7 @@ class chatActivity : AppCompatActivity() {
         })
 
 
-        sendBtn.setOnClickListener {
+        sendButton.setOnClickListener {
             val msg = editChatting.text.toString()
             sendMsg(sender, receiver, msg)
 
