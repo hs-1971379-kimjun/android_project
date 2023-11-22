@@ -6,7 +6,7 @@ import android.os.Bundle
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        print("Hello World2!")
+        //pull request 확인용
         setContentView(R.layout.activity_main)
     }
 }
