@@ -35,7 +35,7 @@ class EditScreenActivity : AppCompatActivity() {
         database.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val item = snapshot.getValue(ItemModel::class.java)
+                val item = snapshot.getValue(ProductItem::class.java)
                 binding.title.setText(item?.title)
                 binding.description.setText(item?.description)
                 binding.price.setText(item?.price)
@@ -59,7 +59,7 @@ class EditScreenActivity : AppCompatActivity() {
 
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val item = snapshot.getValue(ItemModel::class.java)
+                val item = snapshot.getValue(ProductItem::class.java)
 
 
                 val updatedData = hashMapOf(

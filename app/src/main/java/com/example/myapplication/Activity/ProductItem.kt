@@ -1,6 +1,6 @@
 package com.example.myapplication.Activity
 
-data class ItemModel(
+data class ProductItem(
     val description: String? = null,
     val seller: String? = null,
     val img: String? = null,

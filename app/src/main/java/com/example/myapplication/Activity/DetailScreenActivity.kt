@@ -3,8 +3,6 @@ package com.example.myapplication.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.example.myapplication.databinding.ActivityDetailScreenBinding
 import com.google.firebase.database.DataSnapshot
@@ -42,7 +40,7 @@ class DetailScreenActivity : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                val item = snapshot.getValue(ItemModel::class.java)
+                val item = snapshot.getValue(ProductItem::class.java)
                 binding.title.text = item?.title
                 binding.description.text = item?.description
                 binding.price.text = item?.price
