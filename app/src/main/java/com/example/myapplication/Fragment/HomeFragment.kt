@@ -24,8 +24,11 @@ import com.example.myapplication.Adapter.ProductAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -181,18 +184,44 @@ class HomeFragment : Fragment() {
         val itemRecyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
         itemRecyclerView?.visibility = View.GONE
 
-        var keys = mutableListOf<String>()
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Items")
 
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val (itemList, key) = getItemListFromFirebase()
-                keys = key.toMutableList()
-                adapter.updateList(itemList)
-                binding.recyclerView.visibility = View.VISIBLE
-            } catch (e: Exception) {
-                Log.d("오류", "error: 불러오기 실패")
-            }
+        val query = if (status != null) {
+            // 선택된 상태에 따라 Firebase 쿼리 설정
+            databaseReference.orderByChild("status").equalTo(status)
+        } else {
+            databaseReference // 모든 항목 가져오기
         }
+
+        val keys = mutableListOf<String>() //DB에서 Items 밑에 고유 키값을 가져오기위한 list
+        //query.addValueEventListener(object : ValueEventListener
+
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                productList.clear()
+
+                if (snapshot.exists()) {
+
+                    for (itemSnap in snapshot.children) {
+                        val key = itemSnap.key
+                        keys.add(key!!) // 고유 키값을 keys 리스트에 추가
+
+                        val itemData = itemSnap.getValue(ProductItem::class.java)
+                        productList.add(itemData!!)
+                    }
+
+                    // 여기서 itemList를 업데이트하고 어댑터에 새 목록을 설정
+
+                }
+                adapter.updateList(productList)
+                binding.recyclerView.visibility = View.VISIBLE
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("오류", "error:불러오기 실패")
+            }
+        })
+
         val userEmail = FirebaseAuth.getInstance().currentUser?.email //현재 사용자의 email
 
         //리사이클러뷰의 아이템 클릭 이벤트
@@ -216,31 +245,5 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private suspend fun getItemListFromFirebase(): Pair<List<ProductItem>, List<String>> {
-        val storageRef = FirebaseDatabase.getInstance().reference.child("Items")
-        val userEmail = FirebaseAuth.getInstance().currentUser?.email // 현재 사용자의 email
-
-        val snapshot = if (status != null) {
-            // 선택된 상태에 따라 Firebase 쿼리 설정
-            storageRef.orderByChild("status").equalTo(status).get().await()
-        } else {
-            storageRef.get().await() // 모든 항목 가져오기
-        }
-
-        val itemList = mutableListOf<ProductItem>()
-        val keys = mutableListOf<String>()
-
-        if (snapshot.exists()) {
-            for (itemSnap in snapshot.children) {
-                val key = itemSnap.key
-                keys.add(key!!) // 고유 키값을 keys 리스트에 추가
-
-                val itemData = itemSnap.getValue(ProductItem::class.java)
-                itemList.add(itemData!!)
-            }
-        }
-
-        return  Pair(itemList, keys)
-    }
 
 }
