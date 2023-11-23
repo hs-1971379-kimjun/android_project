@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
+import com.example.myapplication.Activity.ShowChatActivity
 import com.example.myapplication.Activity.WritePostActivity
+import com.example.myapplication.Adapter.ProductAdater
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +32,7 @@ import kotlinx.coroutines.tasks.await
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: ProductAdater
     private lateinit var productList: MutableList<ProductItem>
     private var currentFilter: String? = null
     private var status: String? = null
@@ -145,7 +147,7 @@ class HomeFragment : Fragment() {
 
     private fun showChatingMenu() {
         // Implement the filter options popup menu
-        val intent = Intent(requireContext(), showChatActivity::class.java)
+        val intent = Intent(requireContext(), ShowChatActivity::class.java)
         startActivity(intent)
     }
 
@@ -169,7 +171,7 @@ class HomeFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         productList = mutableListOf()
-        adapter = ProductAdapter(productList)
+        adapter = ProductAdater(productList)
         binding.recyclerView.adapter = adapter
     }
 
