@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Activity.ItemModel
+import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
 import com.example.myapplication.Activity.WritePostActivity
 import com.example.myapplication.R
@@ -188,7 +188,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private suspend fun getItemListFromFirebase(): List<ItemModel> {
+    private suspend fun getItemListFromFirebase(): List<ProductItem> {
         val storageRef = FirebaseDatabase.getInstance().reference.child("Items")
         val userEmail = FirebaseAuth.getInstance().currentUser?.email // 현재 사용자의 email
 
@@ -199,7 +199,7 @@ class HomeFragment : Fragment() {
             storageRef.get().await() // 모든 항목 가져오기
         }
 
-        val itemList = mutableListOf<ItemModel>()
+        val itemList = mutableListOf<ProductItem>()
         val keys = mutableListOf<String>()
 
         if (snapshot.exists()) {
@@ -207,7 +207,7 @@ class HomeFragment : Fragment() {
                 val key = itemSnap.key
                 keys.add(key!!) // 고유 키값을 keys 리스트에 추가
 
-                val itemData = itemSnap.getValue(ItemModel::class.java)
+                val itemData = itemSnap.getValue(ProductItem::class.java)
                 itemList.add(itemData!!)
             }
         }
