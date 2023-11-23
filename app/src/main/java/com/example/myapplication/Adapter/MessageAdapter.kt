@@ -23,13 +23,7 @@ class MessageAdapter (val itemList : ArrayList<MessageItem>) : RecyclerView.Adap
         return MessageViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        val messageItem = itemList[position]
-        holder.msg.text = messageItem.msg ?: "No"
-        holder.time.text = messageItem.time?.let { convertTimeToString(it) } ?: "No time available"
-        //holder.time.text = messageItem.timeString ?: "No time available"
-        holder.sender.text = messageItem.sender ?: "No sender"
-    }
+
 
     override fun getItemCount(): Int {
         return itemList.size
@@ -40,7 +34,12 @@ class MessageAdapter (val itemList : ArrayList<MessageItem>) : RecyclerView.Adap
         val time: TextView = itemView.findViewById(R.id.timeTextView) ?: TextView(itemView.context)
         val sender: TextView = itemView.findViewById(R.id.senderTextView) ?: TextView(itemView.context)
     }
-
+    override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
+        val messageItem = itemList[position]
+        holder.msg.text = messageItem.msg ?: "No"
+        holder.time.text = messageItem.time?.let { convertTimeToString(it) } ?: "No time"
+        holder.sender.text = messageItem.sender ?: "No sender"
+    }
     private fun convertTimeToString(time: Long): String {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = time

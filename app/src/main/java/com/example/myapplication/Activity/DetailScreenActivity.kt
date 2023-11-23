@@ -3,8 +3,6 @@ package com.example.myapplication.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.example.myapplication.databinding.ActivityDetailScreenBinding
 import com.google.firebase.database.DataSnapshot
@@ -34,28 +32,26 @@ class DetailScreenActivity : AppCompatActivity() {
         }
     }
     fun show() {
-
         val key = intent.getStringExtra("itemKey").toString()
-        database = FirebaseDatabase.getInstance().getReference("Items").child(key)
+        val database = FirebaseDatabase.getInstance().getReference("Items").child(key)
 
-        database.addValueEventListener(object : ValueEventListener{
-
+        database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
-                val item = snapshot.getValue(ItemModel::class.java)
-                binding.title.text = item?.title
-                binding.description.text = item?.description
-                binding.price.text = item?.price
-                binding.soldTF.text = item?.status
-                binding.name.text = item?.seller
-
+                val item = snapshot.getValue(ProductItem::class.java)
+                binding.apply {
+                    title.text = item?.title
+                    description.text = item?.description
+                    price.text = item?.price
+                    soldTF.text = item?.status
+                    name.text = item?.seller
+                }
                 user = item?.seller?.toString() ?: "DefaultUser"
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@DetailScreenActivity, "error: 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailScreenActivity, "데이터를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
+
 }
