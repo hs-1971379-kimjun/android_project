@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.Data.UserData
 import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -70,7 +71,7 @@ class CreateActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val firebaseUser = mFirebaseAuth.currentUser
-                        val account = UserAccount().apply {
+                        val account = UserData().apply {
                             idToken = firebaseUser?.uid
                             emailId = firebaseUser?.email
                             this.password = password
