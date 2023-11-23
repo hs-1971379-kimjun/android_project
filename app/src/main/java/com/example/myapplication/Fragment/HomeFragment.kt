@@ -18,11 +18,7 @@ import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
 import com.example.myapplication.Activity.ShowChatActivity
 import com.example.myapplication.Activity.WritePostActivity
-<<<<<<< HEAD
 import com.example.myapplication.Adapter.ProductAdapter
-=======
-import com.example.myapplication.Adapter.ProductAdater
->>>>>>> 11bb4b30696bee678e85cd314a0ab52e8cb09b8a
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +32,7 @@ import kotlinx.coroutines.tasks.await
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var adapter: ProductAdater
+    private lateinit var adapter: ProductAdapter
     private lateinit var productList: MutableList<ProductItem>
     private var currentFilter: String? = null
     private var status: String? = null
@@ -175,7 +171,7 @@ class HomeFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         productList = mutableListOf()
-        adapter = ProductAdater(productList)
+        adapter = ProductAdapter(productList)
         binding.recyclerView.adapter = adapter
     }
 
