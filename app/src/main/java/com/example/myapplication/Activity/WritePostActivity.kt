@@ -73,15 +73,20 @@ class WritePostActivity : AppCompatActivity() {
             "status" to "판매 중",
             "seller" to seller
         )
+        println("게시글 완료 ${itemData}")
 
         // 새 게시물 참조 생성 및 데이터베이스에 업로드
         val newItemRef = dbRef.push()
         newItemRef.setValue(itemData)
             .addOnSuccessListener {
+                println("게시글 완료3")
                 Toast.makeText(this, "업로드 완료", Toast.LENGTH_SHORT).show()
+
             }
             .addOnFailureListener {
+                println("게시글 완료4")
                 Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
             }
+        println("게시글 완료2")
     }
 }

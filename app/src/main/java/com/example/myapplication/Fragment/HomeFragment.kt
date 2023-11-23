@@ -14,8 +14,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.Activity.DetailScreenActivity
 import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
+import com.example.myapplication.Activity.ModifyScreenActivity
 import com.example.myapplication.Activity.ShowChatActivity
 import com.example.myapplication.Activity.WritePostActivity
 import com.example.myapplication.Adapter.ProductAdapter
@@ -179,18 +181,42 @@ class HomeFragment : Fragment() {
         val itemRecyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
         itemRecyclerView?.visibility = View.GONE
 
+        var keys = mutableListOf<String>()
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val itemList = getItemListFromFirebase()
+                val (itemList, key) = getItemListFromFirebase()
+                keys = key.toMutableList()
                 adapter.updateList(itemList)
                 binding.recyclerView.visibility = View.VISIBLE
             } catch (e: Exception) {
                 Log.d("오류", "error: 불러오기 실패")
             }
         }
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email //현재 사용자의 email
+
+        //리사이클러뷰의 아이템 클릭 이벤트
+        adapter.setOnItemClickListener(object : ProductAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                val ClickedItemSeller = productList[position].seller.toString()
+
+                if(userEmail == ClickedItemSeller) { //현재 사용자의 email과 글 작성자 email 동일하면 수정 화면으로 이동
+                    val intent = Intent(requireContext(), ModifyScreenActivity::class.java)
+                    val itemKey = keys[position] // 클릭한 아이템의 고유 키값 가져오기
+                    intent.putExtra("itemKey", itemKey) // 클릭한 아이템의 고유 키값을 Intent에 넣어서 전달
+                    startActivity(intent)
+
+                } else { //다르면 판매 글 보기 화면으로 이동
+                    val intent2 = Intent(requireContext(), DetailScreenActivity::class.java)
+                    val itemKey = keys[position] // 클릭한 아이템의 고유 키값 가져오기
+                    intent2.putExtra("itemKey", itemKey) // 클릭한 아이템의 고유 키값을 Intent에 넣어서 전달
+                    startActivity(intent2)
+                }
+            }
+        })
     }
 
-    private suspend fun getItemListFromFirebase(): List<ProductItem> {
+    private suspend fun getItemListFromFirebase(): Pair<List<ProductItem>, List<String>> {
         val storageRef = FirebaseDatabase.getInstance().reference.child("Items")
         val userEmail = FirebaseAuth.getInstance().currentUser?.email // 현재 사용자의 email
 
@@ -214,7 +240,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        return itemList
+        return  Pair(itemList, keys)
     }
 
 }

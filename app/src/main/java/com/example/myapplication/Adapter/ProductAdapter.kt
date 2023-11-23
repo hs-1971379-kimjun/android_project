@@ -52,7 +52,7 @@ class ProductAdapter(private var itemList: List<ProductItem>): RecyclerView.Adap
 
         //리사이클러 뷰의 아이템 클릭리스너
         holder.binding.root.setOnClickListener {
-            mListener?.onItemClick(position)
+            mListener.onItemClick(position)
         }
 
         // Check the status and set the appropriate text
