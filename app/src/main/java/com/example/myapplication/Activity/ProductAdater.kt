@@ -12,13 +12,13 @@ import com.squareup.picasso.Picasso
 class ItemViewHolder(var binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
 // RecyclerView의 아이템들을 관리하기 위한 어댑터 클래스
-class productAdater(
-    private var itemList: List<ItemModel>,
+class ProductAdater(
+    private var itemList: List<Productitem>,
     private val itemClickListener: (Int) -> Unit // 클릭 리스너를 람다 표현식으로 받음
 ) : RecyclerView.Adapter<ItemViewHolder>() {
 
     // 새로운 데이터  아이템 리스트를 업데이트
-    fun updateList(newList: List<ItemModel>) {
+    fun updateList(newList: List<productitem>) {
         itemList = newList
         notifyDataSetChanged()
     }
