@@ -48,6 +48,7 @@ class WritePostActivity : AppCompatActivity() {
                 description = descriptionEditText.text.toString(),
                 price = priceEditText.text.toString(),
                 seller = currentUser?.email
+
             )
             finish()
         }
