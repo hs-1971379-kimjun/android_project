@@ -13,7 +13,22 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.ShowChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DetailScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ModifyScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +36,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.CreateActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.WritePostActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

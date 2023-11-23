@@ -29,7 +29,7 @@ import java.util.Locale
 //sendBtn -> sendButton
 //editChat -> editChatting
 
-class chatActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity() {
 
     private lateinit var sendButton: Button
     private lateinit var editChatting: EditText
@@ -88,7 +88,7 @@ class chatActivity : AppCompatActivity() {
                             itemList.add(messageData)
                         }
                     } else {
-                        Toast.makeText(this@chatActivity, "메시지 전송 오류", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ChatActivity, "메시지 전송 오류", Toast.LENGTH_SHORT).show()
                     }
                 }
                 chatAdapter.notifyDataSetChanged()
@@ -98,7 +98,7 @@ class chatActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@chatActivity, "메시지 전송 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ChatActivity, "메시지 전송 실패", Toast.LENGTH_SHORT).show()
             }
         })
 
