@@ -1,9 +1,10 @@
-package com.example.myapplication.Activity
+package com.example.myapplication.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.databinding.ItemBinding
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
@@ -13,12 +14,12 @@ class ItemViewHolder(var binding: ItemBinding) : RecyclerView.ViewHolder(binding
 
 // RecyclerView의 아이템들을 관리하기 위한 어댑터 클래스
 class ProductAdater(
-    private var itemList: List<Productitem>,
+    private var itemList: List<ProductItem>,
     private val itemClickListener: (Int) -> Unit // 클릭 리스너를 람다 표현식으로 받음
 ) : RecyclerView.Adapter<ItemViewHolder>() {
 
     // 새로운 데이터  아이템 리스트를 업데이트
-    fun updateList(newList: List<productitem>) {
+    fun updateList(newList: List<ProductItem>) {
         itemList = newList
         notifyDataSetChanged()
     }
