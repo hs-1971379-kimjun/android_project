@@ -37,7 +37,7 @@ class ProductAdater(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val currentItem = itemList[position]
         with(holder.binding) {
-            loadImage(ImgView2, "image/item1.jpg")
+            loadImage(imageView2, "image/item1.jpg")
             itemTitle.text = currentItem.title
             saleStatus.text = if (currentItem.status == "판매 중") "판매 중" else "판매 완료"
             itemPrice.text = currentItem.price
