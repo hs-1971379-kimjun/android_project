@@ -18,7 +18,11 @@ import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
 import com.example.myapplication.Activity.ShowChatActivity
 import com.example.myapplication.Activity.WritePostActivity
+<<<<<<< HEAD
+import com.example.myapplication.Adapter.ProductAdapter
+=======
 import com.example.myapplication.Adapter.ProductAdater
+>>>>>>> 11bb4b30696bee678e85cd314a0ab52e8cb09b8a
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
