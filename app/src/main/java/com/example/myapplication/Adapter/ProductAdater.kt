@@ -37,9 +37,9 @@ class ProductAdater(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val currentItem = itemList[position]
         with(holder.binding) {
-            loadImage(itemImg, "image/item1.jpg")
+            loadImage(ImgView2, "image/item1.jpg")
             itemTitle.text = currentItem.title
-            itemStatus.text = if (currentItem.status == "판매 중") "판매 중" else "판매 완료"
+            saleStatus.text = if (currentItem.status == "판매 중") "판매 중" else "판매 완료"
             itemPrice.text = currentItem.price
 
             // 클릭 리스너를 람다 표현식으로 설정
