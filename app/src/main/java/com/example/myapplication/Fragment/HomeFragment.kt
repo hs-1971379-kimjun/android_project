@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
+import com.example.myapplication.Activity.ShowChatActivity
 import com.example.myapplication.Activity.WritePostActivity
+import com.example.myapplication.Adapter.ProductAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -145,7 +147,7 @@ class HomeFragment : Fragment() {
 
     private fun showChatingMenu() {
         // Implement the filter options popup menu
-        val intent = Intent(requireContext(), showChatActivity::class.java)
+        val intent = Intent(requireContext(), ShowChatActivity::class.java)
         startActivity(intent)
     }
 
