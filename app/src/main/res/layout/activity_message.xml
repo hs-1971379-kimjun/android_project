@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cha"
-    tools:context=".Activity.showChatActivity">
+    tools:context=".Activity.ShowChatActivity">
 
     <TextView
         android:id="@+id/senderID"
