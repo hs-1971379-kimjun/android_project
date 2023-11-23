@@ -2,7 +2,6 @@ package com.example.myapplication.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,11 +13,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
-class showChatActivity : AppCompatActivity() {
+class ShowChatActivity : AppCompatActivity() {
     private val itemList = ArrayList<MessageItem>()
     private lateinit var msgStorageRef: DatabaseReference
     private lateinit var messageAdapter: MessageAdapter
@@ -57,7 +53,7 @@ class showChatActivity : AppCompatActivity() {
                 messageAdapter.notifyDataSetChanged()
             }
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@showChatActivity, "메시지 출력 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ShowChatActivity, "메시지 출력 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
