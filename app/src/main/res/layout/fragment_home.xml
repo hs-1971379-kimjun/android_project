@@ -66,7 +66,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toStartOf="@+id/chat"
         app:layout_constraintTop_toTopOf="@+id/chat"
-        app:srcCompat="@android:drawable/ic_menu_mylocation" />
+        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
     <view
         android:id="@+id/chat"
@@ -76,7 +76,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toStartOf="@+id/logout"
         app:layout_constraintTop_toTopOf="@+id/logout"
-        app:srcCompat="@android:drawable/stat_notify_chat" />
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
     <view
         android:id="@+id/logout"
@@ -86,5 +86,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
