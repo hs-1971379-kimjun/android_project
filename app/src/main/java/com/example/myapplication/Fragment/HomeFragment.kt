@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
     private lateinit var productList: MutableList<ProductItem>
     private var currentFilter: String? = null
     private var status: String? = null
+
+    private lateinit var keys: List<String>
 
 
     override fun onCreateView(
@@ -180,70 +183,97 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun fetchProductList() {
+    private fun setupRecyclerView() {
         val itemRecyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
         itemRecyclerView?.visibility = View.GONE
+    }
 
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Items")
+    private fun setupDatabaseReference(): DatabaseReference {
+        return FirebaseDatabase.getInstance().reference.child("Items")
+    }
 
-        val query = if (status != null) {
-            // 선택된 상태에 따라 Firebase 쿼리 설정
+    private fun setupDatabaseQuery(): Query {
+        return if (status != null) {
             databaseReference.orderByChild("status").equalTo(status)
         } else {
-            databaseReference // 모든 항목 가져오기
+            databaseReference
         }
+    }
 
-        val keys = mutableListOf<String>() //DB에서 Items 밑에 고유 키값을 가져오기위한 list
-        //query.addValueEventListener(object : ValueEventListener
+    private fun fetchKeysFromSnapshot(snapshot: DataSnapshot): List<String> {
+        val keys = mutableListOf<String>()
+        for (itemSnap in snapshot.children) {
+            val key = itemSnap.key
+            keys.add(key!!)
+        }
+        return keys
+    }
+
+    private fun fetchProductDataFromSnapshot(snapshot: DataSnapshot): MutableList<ProductItem> {
+        val productList = mutableListOf<ProductItem>()
+        for (itemSnap in snapshot.children) {
+            val itemData = itemSnap.getValue(ProductItem::class.java)
+            productList.add(itemData!!)
+        }
+        return productList
+    }
+
+    private fun updateUI(productList: MutableList<ProductItem>) {
+        adapter.updateList(productList)
+        binding.recyclerView.visibility = View.VISIBLE
+    }
+
+    private fun handleDatabaseError(error: DatabaseError) {
+        Log.d("오류", "error:불러오기 실패")
+    }
+
+    private fun getCurrentUserEmail(): String? {
+        return FirebaseAuth.getInstance().currentUser?.email
+    }
+
+    private fun navigateToScreen(itemKey: String, isCurrentUser: Boolean) {
+        val intent = if (isCurrentUser) {
+            Intent(requireContext(), ModifyScreenActivity::class.java)
+        } else {
+            Intent(requireContext(), DetailScreenActivity::class.java)
+        }
+        intent.putExtra("itemKey", itemKey)
+        startActivity(intent)
+    }
+
+    private fun setItemClickListener() {
+        adapter.setOnItemClickListener(object : ProductAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                val clickedItemSeller = productList[position].seller.toString()
+                val isCurrentUser = getCurrentUserEmail() == clickedItemSeller
+                val itemKey = keys[position]
+                navigateToScreen(itemKey, isCurrentUser)
+            }
+        })
+    }
+
+    private fun fetchDataFromDatabase() {
+        val query = setupDatabaseQuery()
 
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                productList.clear()
-
-                if (snapshot.exists()) {
-
-                    for (itemSnap in snapshot.children) {
-                        val key = itemSnap.key
-                        keys.add(key!!) // 고유 키값을 keys 리스트에 추가
-
-                        val itemData = itemSnap.getValue(ProductItem::class.java)
-                        productList.add(itemData!!)
-                    }
-
-                    // 여기서 itemList를 업데이트하고 어댑터에 새 목록을 설정
-
-                }
-                adapter.updateList(productList)
-                binding.recyclerView.visibility = View.VISIBLE
+                keys = fetchKeysFromSnapshot(snapshot)
+                productList = fetchProductDataFromSnapshot(snapshot)
+                updateUI(productList)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.d("오류", "error:불러오기 실패")
-            }
-        })
-
-        val userEmail = FirebaseAuth.getInstance().currentUser?.email //현재 사용자의 email
-
-        //리사이클러뷰의 아이템 클릭 이벤트
-        adapter.setOnItemClickListener(object : ProductAdapter.onItemClickListener {
-            override fun onItemClick(position: Int) {
-                val ClickedItemSeller = productList[position].seller.toString()
-
-                if(userEmail == ClickedItemSeller) { //현재 사용자의 email과 글 작성자 email 동일하면 수정 화면으로 이동
-                    val intent = Intent(requireContext(), ModifyScreenActivity::class.java)
-                    val itemKey = keys[position] // 클릭한 아이템의 고유 키값 가져오기
-                    intent.putExtra("itemKey", itemKey) // 클릭한 아이템의 고유 키값을 Intent에 넣어서 전달
-                    startActivity(intent)
-
-                } else { //다르면 판매 글 보기 화면으로 이동
-                    val intent2 = Intent(requireContext(), DetailScreenActivity::class.java)
-                    val itemKey = keys[position] // 클릭한 아이템의 고유 키값 가져오기
-                    intent2.putExtra("itemKey", itemKey) // 클릭한 아이템의 고유 키값을 Intent에 넣어서 전달
-                    startActivity(intent2)
-                }
+                handleDatabaseError(error)
             }
         })
     }
 
 
+
+    private fun fetchProductList() {
+        setupRecyclerView()
+        databaseReference = setupDatabaseReference()
+        fetchDataFromDatabase()
+        setItemClickListener()
+    }
 }
