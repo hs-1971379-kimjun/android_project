@@ -19,16 +19,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-// activity_chat.xml id변경
-// senderEmail -> sendEmail
-// rv_chat -> chat_rv
-// chat -> chatting
-// sendBtn -> sendButton
-
-//chatActivity.kt id변경
-//sendBtn -> sendButton
-//editChat -> editChatting
-
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var sendButton: Button

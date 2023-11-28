@@ -13,20 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-//activity_create.xml id 변경
-//cMaintext -> Maintext
-//createemail -> createEmail
-//createpwd -> createPWD
-//cname -> create_name
-//cbirth -> create_birth
-//backbutton -> backButton
-//realCreateBtn -> CreateButton
-
-//createActivity.kt id 변경
-//strEmail -> email
-//strPwd -> password
-//strName -> name
-//strBirth -> birth
 class CreateActivity : AppCompatActivity() {
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mDatabaseRef: DatabaseReference
