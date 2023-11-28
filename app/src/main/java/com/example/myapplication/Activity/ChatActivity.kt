@@ -51,29 +51,23 @@ class ChatActivity : AppCompatActivity() {
         msgStorageRef.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                itemList.clear() // 새로운 데이터를 받을 때마다 리스트를 초기화
+                itemList.clear()
 
                 for (itemSnap in snapshot.children) {
                     val messageData = itemSnap.getValue(chatItem::class.java)
 
                     if (messageData != null) {
-                        //현재 로그인한 사용자와 메시지를 보낸 사용자가 동일하며,
-                        // 메시지 수신자와 액티비티에서 인텐트로 받은 메시지를 받는 판매자가 동일한 경우
                         if (messageData.sender == sender && messageData.receiver == receiver) {
 
-                            // timestamp를 받아와서 변환
                             val timestamp = messageData.time ?: 0
                             val calendar = Calendar.getInstance()
                             calendar.timeInMillis = timestamp
 
-                            // 시간에 9를 더함
                             calendar.add(Calendar.HOUR_OF_DAY, 9)
 
-                            // SimpleDateFormat을 사용하여 원하는 형식으로 시간 문자열로 변환
                             val simpleDateFormat = SimpleDateFormat("H:mm", Locale.getDefault())
                             val formattedTime = simpleDateFormat.format(calendar.time)
 
-                            // 변환된 시간 문자열을 chatItem에 설정
                             messageData.timeString = formattedTime
                             itemList.add(messageData)
                         }
