@@ -33,16 +33,18 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        val sender = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val receiver = intent.getStringExtra("userEmail")
+        val sendEmail = findViewById<TextView>(R.id.sendEmail)
+        sendEmail.text = receiver.toString() + "님과의 대화방"
+
+
         editChatting = findViewById<EditText>(R.id.chatting)
         sendButton = findViewById<Button>(R.id.sendButton)
         recyclerView = findViewById<RecyclerView>(R.id.chat_rv)
         recyclerView.visibility = View.GONE
         chatAdapter = ChatAdapter(itemList)
 
-        val sender = FirebaseAuth.getInstance().currentUser?.email.toString() //현재 사용자 이메일
-        val receiver = intent.getStringExtra("userEmail") //판매자 이메일 (메시지 수신)
-        val sendEmail = findViewById<TextView>(R.id.sendEmail)
-        sendEmail.text = receiver.toString() + "님과의 대화방"
 
         recyclerView.adapter = chatAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -89,13 +91,13 @@ class ChatActivity : AppCompatActivity() {
 
         sendButton.setOnClickListener {
             val msg = editChatting.text.toString()
-            sendMsg(sender, receiver, msg)
+            sendmsg(sender, receiver, msg)
 
             editChatting.text.clear()
         }
     }
 
-    private fun sendMsg(sender: String?, receiver: String?, msg: String?) {
+    private fun sendmsg(sender: String?, receiver: String?, msg: String?) {
         userStorageRef = FirebaseDatabase.getInstance().getReference("Items")
         msgStorageRef = FirebaseDatabase.getInstance().getReference("Message")
 
