@@ -29,7 +29,7 @@ class ShowChatActivity : AppCompatActivity() {
         messageAdapter = com.example.myapplication.Adapter.MessageAdapter(itemList)
         recyclerView.adapter = messageAdapter
 
-        //val senderID = findViewById<TextView>(R.id.senderID)
+
         val receiver = intent.getStringExtra("userEmail")
         val userEmail = FirebaseAuth.getInstance().currentUser?.email
         msgStorageRef = FirebaseDatabase.getInstance().getReference("Message")
@@ -40,7 +40,7 @@ class ShowChatActivity : AppCompatActivity() {
 
                 for (snapshot in snapshot.children) {
 
-                    // 여기에서 필요한 데이터를 추출하고 Message 객체를 생성하여 어댑터에 추가
+
                     val senderId: String? = snapshot.child("sender").getValue(String::class.java)
                     val receiverId: String? = snapshot.child("receiver").getValue(String::class.java)
                     val messageText: String? = snapshot.child("msg").getValue(String::class.java)

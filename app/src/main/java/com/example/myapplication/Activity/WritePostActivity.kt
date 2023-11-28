@@ -65,7 +65,7 @@ class WritePostActivity : AppCompatActivity() {
 
 
     private fun uploadPost(title: String, description: String, price: String, seller: String?) {
-        // 게시물 정보
+
         val itemData = mapOf(
             "title" to title,
             "description" to description,
@@ -73,19 +73,19 @@ class WritePostActivity : AppCompatActivity() {
             "status" to "판매 중",
             "seller" to seller
         )
-        println("게시글 완료 ${itemData}")
+        println("게시글 작성 완료 ${itemData}")
 
        
         val newItemRef = dbRef.push()
         newItemRef.setValue(itemData)
             .addOnSuccessListener {
-                println("게시글 완료3")
+                println("게시글 작성 완료3")
                 Toast.makeText(this, "업로드 완료", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
-                println("게시글 완료4")
+                println("게시글 작성 완료4")
                 Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
             }
-        println("게시글 완료2")
+        println("게시글 작성 완료2")
     }
 }
