@@ -89,7 +89,7 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintHorizontal_bias="0.371"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createPWD"
         app:layout_constraintVertical_bias="0.885" />
@@ -147,14 +147,14 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:backgroundTint="#1388FF"
         android:gravity="center"
-        android:text="뒤로가기"
+        android:text="취소"
         android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/CreateButton"
-        app:layout_constraintTop_toTopOf="@+id/CreateButton"
         app:layout_constraintBottom_toBottomOf="@+id/CreateButton"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintStart_toEndOf="@+id/CreateButton"
+        app:layout_constraintTop_toTopOf="@+id/CreateButton" />
 
     <ImageView
         android:layout_width="150dp"
