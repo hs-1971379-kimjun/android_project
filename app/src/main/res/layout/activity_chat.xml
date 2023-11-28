@@ -18,15 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3px"
-        android:background="#00ffff"
-        app:layout_constraintBottom_toTopOf="@+id/chat_rv"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendEmail" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_rv"
         android:layout_width="match_parent"
@@ -37,6 +28,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sendEmail"
         tools:listitem="@layout/chat_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="#00ffff"
+        app:layout_constraintBottom_toTopOf="@+id/chat_rv"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendEmail" />
+
 
     <EditText
         android:id="@+id/chatting"

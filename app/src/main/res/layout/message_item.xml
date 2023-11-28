@@ -27,9 +27,9 @@
         android:background="@drawable/bubble_color"
 
         android:gravity="center"
-        android:padding="8dp"
+        android:padding="10dp"
         android:text="보낸 메세지"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/timeTextView"
