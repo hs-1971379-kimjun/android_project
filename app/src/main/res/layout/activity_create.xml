@@ -40,7 +40,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
-        android:hint="4자리 이상을 입력하세요"
+        android:hint="6자리 이상을 입력하세요"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
