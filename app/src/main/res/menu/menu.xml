@@ -10,7 +10,7 @@
         android:id="@+id/sell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="판매중" />
+        android:title="판매 중" />
     <item
         android:id="@+id/sold"
         android:layout_width="wrap_content"
