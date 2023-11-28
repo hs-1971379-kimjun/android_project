@@ -108,7 +108,7 @@ class ChatActivity : AppCompatActivity() {
             "time" to ServerValue.TIMESTAMP
         )
 
-        
+
         val newMessageRef = msgStorageRef.push()
         newMessageRef.setValue(messageData)
             .addOnSuccessListener {
