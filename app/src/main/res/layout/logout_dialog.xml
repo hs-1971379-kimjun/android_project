@@ -37,7 +37,7 @@
                 android:id="@+id/btnYes"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:background="#2196F3"
+                android:background="#EF5350"
                 android:text="확인"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
