@@ -21,18 +21,18 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        // 회원가입 버튼 이벤트
+
         binding.createBtn.setOnClickListener {
             navigateToCreateActivity()
         }
 
-        // 로그인 버튼 이벤트
+
         binding.loginBtn.setOnClickListener {
             performLogin()
         }
     }
 
-    // 회원가입 액티비티로 네비게이션
+
     private fun navigateToCreateActivity() {
         val intent = Intent(this, CreateActivity::class.java)
         startActivity(intent)
@@ -51,8 +51,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-    // 메인 액티비티로 네비게이션
+    
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
