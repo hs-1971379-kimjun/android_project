@@ -31,7 +31,7 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.activity_chat_screen)
 
         val sender = FirebaseAuth.getInstance().currentUser?.email.toString()
         val receiver = intent.getStringExtra("userEmail")

@@ -10,16 +10,16 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityEditScreenBinding
+import com.example.myapplication.databinding.ActivityProductDetailBinding
 
 
 class EditScreenActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityEditScreenBinding
+    private lateinit var binding: ActivityProductDetailBinding
     private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditScreenBinding.inflate(layoutInflater)
+        binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         show()
