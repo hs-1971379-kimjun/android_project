@@ -13,7 +13,7 @@
         android:layout_height="80dp"
         android:gravity="center"
         android:text="판매자"
-        android:textSize="35dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
