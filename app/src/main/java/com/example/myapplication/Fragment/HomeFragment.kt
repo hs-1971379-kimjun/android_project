@@ -30,10 +30,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -118,7 +114,7 @@ class HomeFragment : Fragment() {
 
     private fun showLogoutConfirmationDialog() {
         val myDialog = Dialog(requireContext())
-        myDialog.setContentView(layoutInflater.inflate(R.layout.logout_dialog, null))
+        myDialog.setContentView(layoutInflater.inflate(R.layout.logout_screen, null))
 
         myDialog.setCancelable(true)
         myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

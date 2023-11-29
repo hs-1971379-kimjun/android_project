@@ -22,7 +22,7 @@ class ShowChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_message)
+        setContentView(R.layout.activity_received_messages)
 
         val recyclerView: RecyclerView = findViewById(R.id.rc_message)
         recyclerView.layoutManager = LinearLayoutManager(this)

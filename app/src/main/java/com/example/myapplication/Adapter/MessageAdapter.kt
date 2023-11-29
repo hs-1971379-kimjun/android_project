@@ -19,7 +19,7 @@ data class MessageItem(
 )
 class MessageAdapter (val itemList : ArrayList<MessageItem>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.sender_message_layout, parent, false)
         return MessageViewHolder(view)
     }
 

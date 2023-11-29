@@ -1,6 +1,5 @@
 package com.example.myapplication.Adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import org.w3c.dom.Text
 
 data class chatItem(
     val msg: String? = null,
@@ -21,7 +19,7 @@ data class chatItem(
 class ChatAdapter (val itemList : ArrayList<chatItem>) : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.chat_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.activity_message_display, parent, false)
         return ChatViewHolder(view)
     }
 
