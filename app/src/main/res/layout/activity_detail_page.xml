@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/message1"
-    tools:context=".Activity.DetailScreenActivity">
+    tools:context=".Activity.DetailPageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

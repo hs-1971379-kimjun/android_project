@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cha"
-    tools:context=".Activity.WritePostActivity">
+    tools:context=".Activity.CreatePostActivity">
 
     <TextView
         android:id="@+id/textViewTitle"

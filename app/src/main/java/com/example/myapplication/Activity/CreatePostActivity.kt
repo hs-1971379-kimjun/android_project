@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class WritePostActivity : AppCompatActivity() {
+class CreatePostActivity : AppCompatActivity() {
 
 
     private lateinit var dbRef: DatabaseReference

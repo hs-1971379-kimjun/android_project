@@ -19,7 +19,7 @@
             android:name=".Activity.ChatScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.DetailScreenActivity"
+            android:name=".Activity.DetailPageActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.ChangeScreenActivity"
@@ -40,7 +40,7 @@
             android:name=".Activity.RegistrationFormActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.WritePostActivity"
+            android:name=".Activity.CreatePostActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.MainActivity"

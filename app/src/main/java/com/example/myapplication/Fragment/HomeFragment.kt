@@ -14,12 +14,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Activity.DetailScreenActivity
+import com.example.myapplication.Activity.DetailPageActivity
 import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
 import com.example.myapplication.Activity.ChangeScreenActivity
 import com.example.myapplication.Activity.ShowChatActivity
-import com.example.myapplication.Activity.WritePostActivity
+import com.example.myapplication.Activity.CreatePostActivity
 import com.example.myapplication.Adapter.ProductAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
@@ -145,7 +145,7 @@ class HomeFragment : Fragment() {
 
     private fun navigateToAddProduct() {
         // Navigate to the screen to add a new product
-        val intent = Intent(this@HomeFragment.requireActivity(), WritePostActivity::class.java)
+        val intent = Intent(this@HomeFragment.requireActivity(), CreatePostActivity::class.java)
         startActivity(intent)
     }
 
@@ -231,7 +231,7 @@ class HomeFragment : Fragment() {
         val intent = if (isCurrentUser) {
             Intent(requireContext(), ChangeScreenActivity::class.java)
         } else {
-            Intent(requireContext(), DetailScreenActivity::class.java)
+            Intent(requireContext(), DetailPageActivity::class.java)
         }
         intent.putExtra("itemKey", itemKey)
         startActivity(intent)

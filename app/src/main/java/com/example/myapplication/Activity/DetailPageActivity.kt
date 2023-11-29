@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class DetailScreenActivity : AppCompatActivity() {
+class DetailPageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailPageBinding
     private lateinit var database: DatabaseReference
@@ -49,7 +49,7 @@ class DetailScreenActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@DetailScreenActivity, "데이터를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailPageActivity, "데이터를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
             }
         })
     }
