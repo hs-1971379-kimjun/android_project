@@ -26,7 +26,7 @@ class DetailScreenActivity : AppCompatActivity() {
 
         binding.sendMsg.setOnClickListener{
 
-            val intent = Intent(this, ChatActivity::class.java)
+            val intent = Intent(this, ChatScreenActivity::class.java)
             intent.putExtra("userEmail", user)
             startActivity(intent)
         }

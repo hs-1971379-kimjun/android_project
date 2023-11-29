@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ModifyScreenActivity : AppCompatActivity() {
+class ChangeScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChangeBinding
     private lateinit var database: DatabaseReference
@@ -65,7 +65,7 @@ class ModifyScreenActivity : AppCompatActivity() {
 
     private fun navigateToEditScreen() {
         val itemKey = intent.getStringExtra("itemKey").toString()
-        val editIntent = Intent(this, EditScreenActivity::class.java)
+        val editIntent = Intent(this, ProductDetailActivity::class.java)
         editIntent.putExtra("itemKey", itemKey)
         startActivity(editIntent)
     }

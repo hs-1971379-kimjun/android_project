@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class ChatActivity : AppCompatActivity() {
+class ChatScreenActivity : AppCompatActivity() {
 
     private lateinit var sendButton: Button
     private lateinit var editChatting: EditText
@@ -74,7 +74,7 @@ class ChatActivity : AppCompatActivity() {
                             itemList.add(messageData)
                         }
                     } else {
-                        Toast.makeText(this@ChatActivity, "메시지 전송 오류", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ChatScreenActivity, "메시지 전송 오류", Toast.LENGTH_SHORT).show()
                     }
                 }
                 chatAdapter.notifyDataSetChanged()
@@ -84,7 +84,7 @@ class ChatActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ChatActivity, "메시지 전송 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ChatScreenActivity, "메시지 전송 실패", Toast.LENGTH_SHORT).show()
             }
         })
 

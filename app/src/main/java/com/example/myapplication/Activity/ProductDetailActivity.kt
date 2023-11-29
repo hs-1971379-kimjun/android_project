@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityProductDetailBinding
 
 
-class EditScreenActivity : AppCompatActivity() {
+class ProductDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailBinding
     private lateinit var database: DatabaseReference
 
@@ -84,7 +84,7 @@ class EditScreenActivity : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
 
-                Toast.makeText(this@EditScreenActivity, "error: 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ProductDetailActivity, "error: 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
             }
         })
     }

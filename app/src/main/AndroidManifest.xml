@@ -16,16 +16,16 @@
             android:name=".Activity.ShowChatActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ChatActivity"
+            android:name=".Activity.ChatScreenActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.DetailScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ModifyScreenActivity"
+            android:name=".Activity.ChangeScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.EditScreenActivity"
+            android:name=".Activity.ProductDetailActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.CreateActivity"
+            android:name=".Activity.RegistrationFormActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.WritePostActivity"

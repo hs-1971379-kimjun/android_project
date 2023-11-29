@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.example.myapplication.databinding.ActivityLoginBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun navigateToCreateActivity() {
-        val intent = Intent(this, CreateActivity::class.java)
+        val intent = Intent(this, RegistrationFormActivity::class.java)
         startActivity(intent)
     }
 

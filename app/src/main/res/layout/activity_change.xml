@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ppp"
-    tools:context=".Activity.ModifyScreenActivity">
+    tools:context=".Activity.ChangeScreenActivity">
 
     <TextView
         android:id="@+id/textView6"

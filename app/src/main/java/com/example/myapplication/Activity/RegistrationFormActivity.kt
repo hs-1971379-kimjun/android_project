@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class CreateActivity : AppCompatActivity() {
+class RegistrationFormActivity : AppCompatActivity() {
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mDatabaseRef: DatabaseReference
     private lateinit var mEtEmail: EditText

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Activity.DetailScreenActivity
 import com.example.myapplication.Activity.ProductItem
 import com.example.myapplication.Activity.LoginActivity
-import com.example.myapplication.Activity.ModifyScreenActivity
+import com.example.myapplication.Activity.ChangeScreenActivity
 import com.example.myapplication.Activity.ShowChatActivity
 import com.example.myapplication.Activity.WritePostActivity
 import com.example.myapplication.Adapter.ProductAdapter
@@ -229,7 +229,7 @@ class HomeFragment : Fragment() {
 
     private fun navigateToScreen(itemKey: String, isCurrentUser: Boolean) {
         val intent = if (isCurrentUser) {
-            Intent(requireContext(), ModifyScreenActivity::class.java)
+            Intent(requireContext(), ChangeScreenActivity::class.java)
         } else {
             Intent(requireContext(), DetailScreenActivity::class.java)
         }
