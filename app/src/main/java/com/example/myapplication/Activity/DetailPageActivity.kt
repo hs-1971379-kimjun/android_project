@@ -17,7 +17,7 @@ class DetailPageActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var user : String
 
-    
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
