@@ -8,40 +8,45 @@ import com.example.myapplication.databinding.ItemBinding
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(private var itemList: List<ProductItem>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private var productList: List<ProductItem>): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
-    private lateinit var mListener: onItemClickListener
-
-    interface onItemClickListener {
+    interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
+
+    private lateinit var itemClickListener: OnItemClickListener
+
+    fun setOnItemClickListener(clickListener: OnItemClickListener) {
+        itemClickListener = clickListener
+    }
+
+    // 아이템 리스트 갱신하는 함수
     fun updateList(newList: List<ProductItem>) {
-        itemList = newList
+        productList = newList
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(clickListener: onItemClickListener) {
-        mListener = clickListener
-    }
+    inner class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class ViewHolder(var binding : ItemBinding) : RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        val itemBinding = ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return productList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem = itemList[position]
+        // 현재 아이템 가져오기
+        val currentItem = productList[position]
 
+        // 뷰홀더에 아이템 타이틀 설정
         holder.binding.itemTitle.text = currentItem.title
 
-        //리사이클러 뷰의 아이템 클릭리스너
+        // 리사이클러뷰의 아이템 클릭 리스너 설정
         holder.binding.root.setOnClickListener {
-            mListener.onItemClick(position)
+            itemClickListener.onItemClick(position)
         }
 
         // Check the status and set the appropriate text
@@ -51,6 +56,7 @@ class ProductAdapter(private var itemList: List<ProductItem>): RecyclerView.Adap
             "판매 완료"
         }
 
+        // 뷰홀더에 판매 상태 및 가격 설정
         holder.binding.saleStatus.text = statusText
         holder.binding.itemPrice.text = currentItem.price
     }

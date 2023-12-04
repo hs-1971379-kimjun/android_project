@@ -16,46 +16,55 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class ShowChatActivity : AppCompatActivity() {
-    private val itemList = ArrayList<MessageItem>()
-    private lateinit var msgStorageRef: DatabaseReference
+    private val messages = ArrayList<MessageItem>()
+    private lateinit var messageStorageRef: DatabaseReference
     private lateinit var messageAdapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_received_messages)
 
-        val recyclerView: RecyclerView = findViewById(R.id.rc_message)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        messageAdapter = com.example.myapplication.Adapter.MessageAdapter(itemList)
-        recyclerView.adapter = messageAdapter
+        setupRecyclerView()
 
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
+        messageStorageRef = FirebaseDatabase.getInstance().getReference("Message")
 
-        val receiver = intent.getStringExtra("userEmail")
-        val userEmail = FirebaseAuth.getInstance().currentUser?.email
-        msgStorageRef = FirebaseDatabase.getInstance().getReference("Message")
-
-        msgStorageRef.addValueEventListener(object : ValueEventListener {
+        messageStorageRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                itemList.clear()
-
-                for (snapshot in snapshot.children) {
-
-
-                    val senderId: String? = snapshot.child("sender").getValue(String::class.java)
-                    val receiverId: String? = snapshot.child("receiver").getValue(String::class.java)
-                    val messageText: String? = snapshot.child("msg").getValue(String::class.java)
-                    val time: Long? = snapshot.child("time").getValue(Long::class.java)
-
-                    val messageItem = MessageItem(senderId, receiverId,messageText, time, null, )
-                    if (receiverId == userEmail) {
-                        itemList.add(messageItem)
-                    }
-                }
+                messages.clear()
+                parseSnapshotData(snapshot, currentUserEmail)
                 messageAdapter.notifyDataSetChanged()
             }
+
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ShowChatActivity, "메시지 출력 실패", Toast.LENGTH_SHORT).show()
+                handleErrorMessage()
             }
         })
     }
+
+    private fun setupRecyclerView() {
+        val recyclerView: RecyclerView = findViewById(R.id.rc_message)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        messageAdapter = MessageAdapter(messages)
+        recyclerView.adapter = messageAdapter
+    }
+
+    private fun parseSnapshotData(snapshot: DataSnapshot, currentUserEmail: String?) {
+        for (snapshotChild in snapshot.children) {
+            val senderId: String? = snapshotChild.child("sender").getValue(String::class.java)
+            val receiverId: String? = snapshotChild.child("receiver").getValue(String::class.java)
+            val messageText: String? = snapshotChild.child("msg").getValue(String::class.java)
+            val time: Long? = snapshotChild.child("time").getValue(Long::class.java)
+
+            val messageItem = MessageItem(senderId, receiverId, messageText, time, null)
+            if (receiverId == currentUserEmail) {
+                messages.add(messageItem)
+            }
+        }
+    }
+
+    private fun handleErrorMessage() {
+        Toast.makeText(this@ShowChatActivity, "메시지 출력 실패", Toast.LENGTH_SHORT).show()
+    }
 }
+

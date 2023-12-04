@@ -1,58 +1,64 @@
 package com.example.myapplication.Activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDetailPageBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class DetailPageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailPageBinding
-    private lateinit var database: DatabaseReference
-    private lateinit var user : String
-
-
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var sellerEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        show()
-
-        binding.sendMsg.setOnClickListener{
-
-            val intent = Intent(this, ChatScreenActivity::class.java)
-            intent.putExtra("userEmail", user)
-            startActivity(intent)
-        }
+        setupUI()
+        showItemDetails()
+        setSendMsgClickListener()
     }
-    fun show() {
-        val key = intent.getStringExtra("itemKey").toString()
-        val database = FirebaseDatabase.getInstance().getReference("Items").child(key)
 
-        database.addValueEventListener(object : ValueEventListener {
+    private fun setupUI() {
+        sellerEmail = intent.getStringExtra("itemKey").toString()
+        databaseReference = FirebaseDatabase.getInstance().getReference("Items").child(sellerEmail)
+    }
+
+    private fun showItemDetails() {
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val item = snapshot.getValue(ProductItem::class.java)
-                binding.apply {
-                    title.text = item?.title
-                    description.text = item?.description
-                    price.text = item?.price
-                    soldTF.text = item?.status
-                    name.text = item?.seller
+                item?.let {
+                    with(binding) {
+                        title.text = it.title
+                        description.text = it.description
+                        price.text = it.price
+                        soldTF.text = it.status
+                        name.text = it.seller
+                    }
+                    sellerEmail = it.seller ?: "DefaultUser"
                 }
-                user = item?.seller?.toString() ?: "DefaultUser"
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@DetailPageActivity, "데이터를 불러오지 못했습니다", Toast.LENGTH_SHORT).show()
+                showMessage("데이터를 불러오지 못했습니다")
             }
         })
+    }
+
+    private fun setSendMsgClickListener() {
+        binding.sendMsg.setOnClickListener {
+            val intent = Intent(this, ChatScreenActivity::class.java)
+            intent.putExtra("userEmail", sellerEmail)
+            startActivity(intent)
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this@DetailPageActivity, message, Toast.LENGTH_SHORT).show()
     }
 }

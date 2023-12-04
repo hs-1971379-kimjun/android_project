@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.PopupMenu
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -233,7 +232,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setItemClickListener() {
-        adapter.setOnItemClickListener(object : ProductAdapter.onItemClickListener {
+        adapter.setOnItemClickListener(object : ProductAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val clickedItemSeller = productList[position].seller.toString()
                 val isCurrentUser = getCurrentUserEmail() == clickedItemSeller
