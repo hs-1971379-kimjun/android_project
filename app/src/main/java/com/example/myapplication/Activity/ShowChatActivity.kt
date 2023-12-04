@@ -53,13 +53,13 @@ class ShowChatActivity : AppCompatActivity() {
         val messages = mutableListOf<MessageItem>()
 
         snapshot.children.forEach { snapshotChild ->
-            val senderId: String? = snapshotChild.child("sender").getValue(String::class.java)
-            val receiverId: String? = snapshotChild.child("receiver").getValue(String::class.java)
-            val messageText: String? = snapshotChild.child("msg").getValue(String::class.java)
-            val time: Long? = snapshotChild.child("time").getValue(Long::class.java)
+            val sender: String? = snapshotChild.child("sender").getValue(String::class.java)
+            val receiver: String? = snapshotChild.child("receiver").getValue(String::class.java)
+            val message: String? = snapshotChild.child("msg").getValue(String::class.java)
+            val timestamp: Long? = snapshotChild.child("time").getValue(Long::class.java)
 
-            val messageItem = MessageItem(senderId, receiverId, messageText, time, null)
-            if (receiverId == currentUserEmail) {
+            val messageItem = MessageItem(sender, receiver, message, timestamp, null)
+            if (receiver == currentUserEmail) {
                 messages.add(messageItem)
             }
         }
