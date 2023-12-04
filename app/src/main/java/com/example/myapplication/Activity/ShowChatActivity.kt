@@ -50,7 +50,9 @@ class ShowChatActivity : AppCompatActivity() {
     }
 
     private fun parseSnapshotData(snapshot: DataSnapshot, currentUserEmail: String?) {
-        for (snapshotChild in snapshot.children) {
+        val messages = mutableListOf<MessageItem>()
+
+        snapshot.children.forEach { snapshotChild ->
             val senderId: String? = snapshotChild.child("sender").getValue(String::class.java)
             val receiverId: String? = snapshotChild.child("receiver").getValue(String::class.java)
             val messageText: String? = snapshotChild.child("msg").getValue(String::class.java)
