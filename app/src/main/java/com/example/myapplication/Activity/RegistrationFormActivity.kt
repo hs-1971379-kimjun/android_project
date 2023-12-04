@@ -39,6 +39,7 @@ class RegistrationFormActivity : AppCompatActivity() {
         backButton.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+
         }
         mBtnRegister = findViewById(R.id.CreateButton)
         mBtnRegister.setOnClickListener {
@@ -67,7 +68,8 @@ class RegistrationFormActivity : AppCompatActivity() {
                         mDatabaseRef.child("UserAccount").child(firebaseUser?.uid ?: "").setValue(account)
 
                         Toast.makeText(this, "회원가입 완료!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, LoginActivity::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     } else {
                         Toast.makeText(this, "회원가입 실패!", Toast.LENGTH_SHORT).show()
                     }
