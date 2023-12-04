@@ -55,5 +55,4 @@ class DetailPageActivity : AppCompatActivity() {
             }
         })
     }
-
 }

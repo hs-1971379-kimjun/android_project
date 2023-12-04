@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                         else -> return@setOnMenuItemClickListener false
                     }
 
-                    updateItemList()
+                    updateDisplayedItemsList()
                     true
                 }
 
@@ -90,57 +90,44 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateItemList() {
-        val filteredItems = when (status) {
-            "판매 중" -> {
-                productList.filter { it.status == "판매 중" }
-            }
-            "판매 완료" -> {
-                productList.filter { it.status == "판매 완료" }
-            }
-            else -> {
-                productList
-            }
-        }
-        Log.d(status, "")
-        adapter.updateList(filteredItems)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeViews()
-        fetchProductList()
-    }
 
     private fun showLogoutConfirmationDialog() {
         val myDialog = Dialog(requireContext())
         myDialog.setContentView(layoutInflater.inflate(R.layout.logout_screen, null))
-
         myDialog.setCancelable(true)
         myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val logoutMsg: TextView = myDialog.findViewById(R.id.logoutMsg)
-        val btnYes: Button = myDialog.findViewById(R.id.btnYes)
-        val btnNo: Button = myDialog.findViewById(R.id.btnNo)
-
-        logoutMsg.text = "로그아웃 하시겠습니까?"
-
-        btnYes.setOnClickListener {
+        val yesButton: Button = myDialog.findViewById(R.id.btnYes)
+        yesButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
 
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
 
-            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "로그아웃 완료", Toast.LENGTH_SHORT).show()
             myDialog.dismiss()
         }
 
-        btnNo.setOnClickListener {
+        val noButton: Button = myDialog.findViewById(R.id.btnNo)
+        noButton.setOnClickListener {
             myDialog.dismiss()
         }
 
         myDialog.show()
+    }
+
+    private fun updateDisplayedItemsList() {
+        val displayedItems = productList.filter {
+            when(status) {
+                "판매 중" -> it.status == "판매 중"
+                "판매 완료" -> it.status == "판매 완료"
+                else -> true
+            }
+        }
+
+        adapter.updateList(displayedItems)
     }
 
     private fun navigateToAddProduct() {
@@ -154,6 +141,14 @@ class HomeFragment : Fragment() {
         val intent = Intent(requireContext(), ShowChatActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeViews()
+        fetchProductList()
+    }
+
+
 
 
     private fun applyFilter() {

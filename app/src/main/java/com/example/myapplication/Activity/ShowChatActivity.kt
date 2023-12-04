@@ -46,7 +46,7 @@ class ShowChatActivity : AppCompatActivity() {
                     val messageText: String? = snapshot.child("msg").getValue(String::class.java)
                     val time: Long? = snapshot.child("time").getValue(Long::class.java)
 
-                    val messageItem = MessageItem(messageText, time, null, senderId, receiverId)
+                    val messageItem = MessageItem(senderId, receiverId,messageText, time, null, )
                     if (receiverId == userEmail) {
                         itemList.add(messageItem)
                     }

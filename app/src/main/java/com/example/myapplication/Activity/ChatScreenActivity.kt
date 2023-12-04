@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Adapter.ChatAdapter
 import com.example.myapplication.Adapter.chatItem
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
@@ -23,83 +24,102 @@ class ChatScreenActivity : AppCompatActivity() {
 
     private lateinit var sendButton: Button
     private lateinit var editChatting: EditText
-    private lateinit var userStorageRef: DatabaseReference
-    private lateinit var msgStorageRef: DatabaseReference
+    private lateinit var StorageUserRef: DatabaseReference
+    private lateinit var StorageMsgRef: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var chatAdapter: ChatAdapter
-    private val itemList = ArrayList<chatItem>()
+    private val chatItemList = ArrayList<chatItem>()
+    private lateinit var sender: String
+    private lateinit var receiver: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_screen)
 
-        val sender = FirebaseAuth.getInstance().currentUser?.email.toString()
-        val receiver = intent.getStringExtra("userEmail")
-        val sendEmail = findViewById<TextView>(R.id.sendEmail)
-        sendEmail.text = receiver.toString() + "님과의 대화방"
+        setupUI()
+        setupRecyclerView()
 
-
-        editChatting = findViewById<EditText>(R.id.chatting)
-        sendButton = findViewById<Button>(R.id.sendButton)
-        recyclerView = findViewById<RecyclerView>(R.id.chat_rv)
-        recyclerView.visibility = View.GONE
-        chatAdapter = ChatAdapter(itemList)
-
-
-        recyclerView.adapter = chatAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        msgStorageRef = FirebaseDatabase.getInstance().reference.child("Message")
-        msgStorageRef.addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                itemList.clear()
-
-                for (itemSnap in snapshot.children) {
-                    val messageData = itemSnap.getValue(chatItem::class.java)
-
-                    if (messageData != null) {
-                        if (messageData.sender == sender && messageData.receiver == receiver) {
-
-                            val timestamp = messageData.time ?: 0
-                            val calendar = Calendar.getInstance()
-                            calendar.timeInMillis = timestamp
-
-                            calendar.add(Calendar.HOUR_OF_DAY, 9)
-
-                            val simpleDateFormat = SimpleDateFormat("H:mm", Locale.getDefault())
-                            val formattedTime = simpleDateFormat.format(calendar.time)
-
-                            messageData.timeString = formattedTime
-                            itemList.add(messageData)
-                        }
-                    } else {
-                        Toast.makeText(this@ChatScreenActivity, "메시지 전송 오류", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                chatAdapter.notifyDataSetChanged()
-                if(chatAdapter.itemCount > 1)
-                    recyclerView.smoothScrollToPosition(chatAdapter.itemCount - 1)
-                recyclerView.visibility = View.VISIBLE
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ChatScreenActivity, "메시지 전송 실패", Toast.LENGTH_SHORT).show()
-            }
-        })
-
+        StorageMsgRef = FirebaseDatabase.getInstance().reference.child("Message")
+        observeMessages()
 
         sendButton.setOnClickListener {
-            val msg = editChatting.text.toString()
-            sendmsg(sender, receiver, msg)
-
+            val message = editChatting.text.toString()
+            sendMessage(message)
             editChatting.text.clear()
         }
     }
 
-    private fun sendmsg(sender: String?, receiver: String?, msg: String?) {
-        userStorageRef = FirebaseDatabase.getInstance().getReference("Items")
-        msgStorageRef = FirebaseDatabase.getInstance().getReference("Message")
+    private fun setupUI() {
+        sender = FirebaseAuth.getInstance().currentUser?.email.toString()
+        receiver = intent.getStringExtra("userEmail").toString()
+
+        val sendEmail = findViewById<TextView>(R.id.sendEmail)
+        sendEmail.text = "$receiver 님과의 대화방"
+
+        editChatting = findViewById(R.id.chatting)
+        sendButton = findViewById(R.id.sendButton)
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.chat_rv)
+        recyclerView.visibility = View.GONE
+        chatAdapter = ChatAdapter(chatItemList)
+
+        recyclerView.adapter = chatAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun observeMessages() {
+        StorageMsgRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                chatItemList.clear()
+
+                for (messageSnapshot in snapshot.children) {
+                    val messageData = messageSnapshot.getValue(chatItem::class.java)
+
+                    if (messageData != null && isMatchingSenderReceiver(messageData)) {
+                        formatAndAddMessage(messageData)
+                    } else {
+                    }
+                }
+
+                updateUIAfterMessagesLoaded()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun isMatchingSenderReceiver(messageData: chatItem): Boolean {
+        return messageData.sender == sender && messageData.receiver == receiver
+    }
+
+    private fun formatAndAddMessage(messageData: chatItem) {
+        val timestamp = messageData.time ?: 0
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+        calendar.add(Calendar.HOUR_OF_DAY, 9)
+
+        val simpleDateFormat = SimpleDateFormat("H:mm", Locale.getDefault())
+        val formattedTime = simpleDateFormat.format(calendar.time)
+
+        messageData.formattedTime = formattedTime
+        chatItemList.add(messageData)
+    }
+
+    private fun updateUIAfterMessagesLoaded() {
+        chatAdapter.notifyDataSetChanged()
+        if (chatAdapter.itemCount > 1) {
+            recyclerView.smoothScrollToPosition(chatAdapter.itemCount - 1)
+        }
+        recyclerView.visibility = View.VISIBLE
+    }
+
+
+    private fun sendMessage(msg: String) {
+        StorageUserRef = FirebaseDatabase.getInstance().getReference("Items")
+        StorageMsgRef = FirebaseDatabase.getInstance().getReference("Message")
 
         val messageData = hashMapOf(
             "sender" to sender,
@@ -108,15 +128,7 @@ class ChatScreenActivity : AppCompatActivity() {
             "time" to ServerValue.TIMESTAMP
         )
 
-
-        val newMessageRef = msgStorageRef.push()
+        val newMessageRef = StorageMsgRef.push()
         newMessageRef.setValue(messageData)
-            .addOnSuccessListener {
-                val messageId = newMessageRef.key
-                Toast.makeText(this, "메시지 전송 성공", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "메시지 전송 실패", Toast.LENGTH_SHORT).show()
-            }
     }
 }

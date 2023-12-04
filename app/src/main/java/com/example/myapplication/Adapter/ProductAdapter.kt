@@ -37,17 +37,6 @@ class ProductAdapter(private var itemList: List<ProductItem>): RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        val storageReference = FirebaseStorage.getInstance().reference
-        val imageReference = storageReference.child("image/item1.jpg")
-
-        imageReference.downloadUrl.addOnSuccessListener { uri ->
-            Picasso.get()
-                .load(uri)
-                .into(holder.binding.imageView2)
-        }.addOnFailureListener { e ->
-
-        }
-
         holder.binding.itemTitle.text = currentItem.title
 
         //리사이클러 뷰의 아이템 클릭리스너
